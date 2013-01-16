@@ -9,7 +9,7 @@ function scrape_insta($username) {
 	return $insta_array;
 }
 
-//Supply a username
+//Supply a non-private username
 $my_account = 'cosmocatalano'; 
 
 //Do the deed
