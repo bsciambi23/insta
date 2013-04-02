@@ -3,11 +3,11 @@
 //returns a big old hunk of JSON from a non-private IG account page.
 function scrape_insta($username) {
 	$insta_source = file_get_contents('http://instagram.com/'.$username);
-	$shards = explode('\']],', $insta_source);
+	$shards = explode('\"]],', $insta_source);
 	$insta_json = explode(',
 
   ["infra\/react_helper"', $shards[1]);  //YES that whitespace needs to be there. 
-	$insta_array = json_decode($insta_json[0], TRUE);
+	$insta_array = json_decode($insta_json[0].'"]]', TRUE);
 	return $insta_array;
 }
 
