@@ -1,13 +1,12 @@
 <?php
 
 //returns a big old hunk of JSON from a non-private IG account page.
+//returns a big old hunk of JSON from a non-private IG account page.
 function scrape_insta($username) {
 	$insta_source = file_get_contents('http://instagram.com/'.$username);
-	$shards = explode('\"]],', $insta_source);
-	$insta_json = explode(',
-
-  ["infra\/react_helper"', $shards[1]);  //YES that whitespace needs to be there. 
-	$insta_array = json_decode($insta_json[0].'"]]', TRUE);
+	$shards = explode('"bootstrap",[', $insta_source);
+	$insta_json = explode('}]]', $shards[1]);  //YES that whitespace needs to be there. 
+	$insta_array = json_decode($insta_json[0].'}', TRUE);
 	return $insta_array;
 }
 
@@ -19,7 +18,7 @@ $my_account = 'cosmocatalano';
 $results_array = scrape_insta($my_account);
 
 //An example of where to go from there
-$latest_array = $results_array[2][2]['userMedia'][0];
+$latest_array = $results_array['props']['userMedia'];
 
 echo 'Latest Photo:<br/>';
 echo '<a href="'.$latest_array['link'].'"><img src="'.$latest_array['images']['low_resolution']['url'].'"></a></br>';
