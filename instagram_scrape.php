@@ -1,7 +1,6 @@
 <?php
 
 //returns a big old hunk of JSON from a non-private IG account page.
-//returns a big old hunk of JSON from a non-private IG account page.
 function scrape_insta($username) {
 	$insta_source = file_get_contents('http://instagram.com/'.$username);
 	$shards = explode('"bootstrap",[', $insta_source);
