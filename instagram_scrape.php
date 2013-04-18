@@ -5,7 +5,7 @@
 function scrape_insta($username) {
 	$insta_source = file_get_contents('http://instagram.com/'.$username);
 	$shards = explode('"bootstrap",[', $insta_source);
-	$insta_json = explode('}]]', $shards[1]);  //YES that whitespace needs to be there. 
+	$insta_json = explode('}]]', $shards[1]);  
 	$insta_array = json_decode($insta_json[0].'}', TRUE);
 	return $insta_array;
 }
