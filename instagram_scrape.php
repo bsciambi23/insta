@@ -3,12 +3,12 @@
 //returns a big old hunk of JSON from a non-private IG account page.
 function scrape_insta($username) {
 	$insta_source = file_get_contents('http://instagram.com/'.$username);
-	$shards = explode('"bootstrap",[', $insta_source);
-	$insta_json = explode('}]]', $shards[1]);  
-	$insta_array = json_decode($insta_json[0].'}', TRUE);
+	$shards = explode('window._sharedData = ', $insta_source);
+	$insta_json = explode('"};', $shards[1]);  
+	$insta_array = json_decode($insta_json[0].'"}', TRUE);
 	return $insta_array;
 }
-
+ 
 
 //Supply a username
 $my_account = 'cosmocatalano'; 
@@ -17,7 +17,7 @@ $my_account = 'cosmocatalano';
 $results_array = scrape_insta($my_account);
 
 //An example of where to go from there
-$latest_array = $results_array['props']['userMedia'];
+$latest_array = $results_array['entry_data']['UserProfile'][0]['userMedia'][0];
 
 echo 'Latest Photo:<br/>';
 echo '<a href="'.$latest_array['link'].'"><img src="'.$latest_array['images']['low_resolution']['url'].'"></a></br>';
