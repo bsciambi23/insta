@@ -4,11 +4,10 @@
 function scrape_insta($username) {
 	$insta_source = file_get_contents('http://instagram.com/'.$username);
 	$shards = explode('window._sharedData = ', $insta_source);
-	$insta_json = explode('"}};', $shards[1]);  
-	$insta_array = json_decode($insta_json[0].'"}}', TRUE);
+	$insta_json = explode(';</script>', $shards[1]); 
+	$insta_array = json_decode($insta_json[0], TRUE);
 	return $insta_array;
 }
- 
 
 //Supply a username
 $my_account = 'cosmocatalano'; 
